@@ -21,5 +21,9 @@ public class PostController {
         return new ResponseEntity<>(new CommonDto(postCreateDto, HttpStatus.OK.value(), "게시글 작성 성공"), HttpStatus.OK);
     }
 
-    // 게시글 목록 조회
+    // 게시글 목록 조회 -> 조회할 때 authorId 말고 author 이름으로 출력해보기
+    @GetMapping("/list")
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<>(new CommonDto(postService.findAll(), HttpStatus.OK.value(), "게시글 목록 조회 성공"), HttpStatus.OK);
+    }
 }

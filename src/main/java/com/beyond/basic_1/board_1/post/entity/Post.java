@@ -1,5 +1,7 @@
 package com.beyond.basic_1.board_1.post.entity;
 
+import com.beyond.basic_1.board_1.post.postDto.PostCreateDto;
+import com.beyond.basic_1.board_1.post.postDto.PostListDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,4 +43,8 @@ public class Post {
         this.authorId =authorId;
     }
 
+    // fromEntity
+    public PostListDto fromEntity() {
+        return new PostListDto(this.id, this.title, this.contents, this.authorId);
+    }
 }
