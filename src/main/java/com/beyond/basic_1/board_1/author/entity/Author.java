@@ -17,25 +17,32 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Author {
+    // Field
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(length = 50, nullable = false)
     private String name;
+
     @Column(length = 100, unique = true, nullable = false)
     private String email;
-    // setter
+
     @Setter
     @Column(length = 100, nullable = false)
     private String password;
+
     @CreationTimestamp
     private LocalDateTime createdTime;
+
     @UpdateTimestamp
     private LocalDateTime updatedTime;
+
     @Setter
     @Enumerated(EnumType.STRING)
     private AuthorState state = AuthorState.NORMAL;
 
+    // Constructor
     public Author(String name, String email, String password) {
         this.name = name;
         this.email = email;
