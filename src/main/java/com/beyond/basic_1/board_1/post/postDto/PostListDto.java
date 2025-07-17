@@ -11,7 +11,5 @@ public class PostListDto {
     private Long id;
     private String title;
     private String contents;
-    private Long author_id;
-
-
+    private String authorName;
 }

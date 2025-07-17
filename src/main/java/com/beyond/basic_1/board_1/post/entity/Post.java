@@ -1,5 +1,6 @@
 package com.beyond.basic_1.board_1.post.entity;
 
+import com.beyond.basic_1.board_1.author.entity.Author;
 import com.beyond.basic_1.board_1.post.postDto.PostCreateDto;
 import com.beyond.basic_1.board_1.post.postDto.PostListDto;
 import jakarta.persistence.*;
@@ -27,8 +28,9 @@ public class Post {
     @Column(length = 1000)
     private String contents;
 
-    @Column(unique = true, nullable = false)
-    private Long authorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")  // 외래키
+    private Author author;
 
     @CreationTimestamp
     private LocalDateTime createdTime;
@@ -37,14 +39,14 @@ public class Post {
     private LocalDateTime updatedTime;
 
     // Constructor
-    public Post(String title, String contents, Long authorId) {
+    public Post(String title, String contents, Author author) {
         this.title = title;
         this.contents = contents;
-        this.authorId =authorId;
+        this.author = author;
     }
 
     // fromEntity
     public PostListDto fromEntity() {
-        return new PostListDto(this.id, this.title, this.contents, this.authorId);
+        return new PostListDto(this.id, this.title, this.contents, this.author.getName());
     }
 }

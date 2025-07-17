@@ -1,5 +1,6 @@
 package com.beyond.basic_1.board_1.post.postDto;
 
+import com.beyond.basic_1.board_1.author.entity.Author;
 import com.beyond.basic_1.board_1.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class PostCreateDto {
     private Long authorId;
 
     // toEntity
-    public Post toEntity() {
-        return new Post(this.title, this.contents, this.authorId);
+    public Post toEntity(Author author) {
+        return new Post(this.title, this.contents, author);
     }
 }
