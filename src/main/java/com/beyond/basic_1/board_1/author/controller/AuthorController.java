@@ -1,5 +1,6 @@
 package com.beyond.basic_1.board_1.author.controller;
 
+import com.beyond.basic_1.board_1.author.authorDto.AuthorChangePasswordDto;
 import com.beyond.basic_1.board_1.author.authorDto.AuthorCreateDto;
 import com.beyond.basic_1.board_1.author.entity.Author;
 import com.beyond.basic_1.board_1.author.service.AuthorService;
@@ -40,6 +41,17 @@ public class AuthorController {
     }
 
     // 비밀번호 변경
+    @PatchMapping("/update-password")
+    public ResponseEntity<?> updatePassword(@RequestBody AuthorChangePasswordDto authorChangePasswordDto) {
+        authorService.updatePassword(authorChangePasswordDto);
+        return new ResponseEntity<>(new CommonDto("ok", HttpStatus.OK.value(), "비밀번호 변경 성공"), HttpStatus.OK);
+    }
 
     // 회원탈퇴
+    @DeleteMapping("/delete/{inputId}")
+    public ResponseEntity<?> deleteById(@PathVariable Long inputId) {
+        authorService.deleteById(inputId);
+        return new ResponseEntity<>(new CommonDto("ok", HttpStatus.OK.value(), "회원 탈퇴 성공"), HttpStatus.OK);
+    }
+
 }

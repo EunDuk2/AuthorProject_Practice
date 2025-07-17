@@ -1,11 +1,9 @@
 package com.beyond.basic_1.board_1.author.entity;
 
 import com.beyond.basic_1.board_1.author.authorDto.AuthorListDto;
+import com.beyond.basic_1.board_1.author.authorEnum.AuthorState;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -26,13 +24,17 @@ public class Author {
     private String name;
     @Column(length = 100, unique = true, nullable = false)
     private String email;
+    // setter
+    @Setter
     @Column(length = 100, nullable = false)
     private String password;
     @CreationTimestamp
     private LocalDateTime createdTime;
     @UpdateTimestamp
     private LocalDateTime updatedTime;
-    private State state = State.NORMAL;
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private AuthorState state = AuthorState.NORMAL;
 
     public Author(String name, String email, String password) {
         this.name = name;
@@ -44,8 +46,4 @@ public class Author {
     public AuthorListDto fromEntity() {
         return new AuthorListDto(this.id, this.name);
     }
-}
-
-enum State {
-    NORMAL, DELETE
 }

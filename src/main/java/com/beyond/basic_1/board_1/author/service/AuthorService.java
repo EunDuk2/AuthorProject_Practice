@@ -1,8 +1,10 @@
 package com.beyond.basic_1.board_1.author.service;
 
+import com.beyond.basic_1.board_1.author.authorDto.AuthorChangePasswordDto;
 import com.beyond.basic_1.board_1.author.authorDto.AuthorCreateDto;
 import com.beyond.basic_1.board_1.author.authorDto.AuthorDetailDto;
 import com.beyond.basic_1.board_1.author.authorDto.AuthorListDto;
+import com.beyond.basic_1.board_1.author.authorEnum.AuthorState;
 import com.beyond.basic_1.board_1.author.entity.Author;
 import com.beyond.basic_1.board_1.author.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,11 +44,26 @@ public class AuthorService {
 
     // 회원 상세조회
     public AuthorDetailDto findById(Long inputId) {
+        // 회원 검증
         Author author = authorRepository.findById(inputId).orElseThrow(() -> new EntityNotFoundException("해당 회원이 존재하지 않습니다."));
         return AuthorDetailDto.fromEntity(author);
     }
 
     // 비밀번호 변경
+    public void updatePassword(AuthorChangePasswordDto authorChangePasswordDto) {
+        // 회원 검증
+        Author author = authorRepository.findById(authorChangePasswordDto.getId()).orElseThrow(() -> new EntityNotFoundException("해당 회원이 존재하지 않습니다."));
+        // 비밀번호 검증
+        if(authorChangePasswordDto.getPassword().length() < 10) {
+            throw new IllegalArgumentException("비밀번호 길이가 짧습니다.");
+        }
+        author.setPassword(authorChangePasswordDto.getPassword());
+    }
 
     // 회원탈퇴
+    public void deleteById(Long inputId) {
+        // 회원 검증
+        Author author = authorRepository.findById(inputId).orElseThrow(() -> new EntityNotFoundException("해당 회원이 존재하지 않습니다."));
+        author.setState(AuthorState.DELETE);
+    }
 }
