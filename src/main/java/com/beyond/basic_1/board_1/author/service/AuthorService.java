@@ -8,11 +8,13 @@ import com.beyond.basic_1.board_1.author.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthorService {
     private final AuthorRepository authorRepository;
 
@@ -34,5 +36,11 @@ public class AuthorService {
     public AuthorDetailDto findById(Long id) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("없는 회원 ID 입니다."));
         return AuthorDetailDto.fromEntity(author);
+    }
+
+    // 회원탈퇴
+    public void delete(Long id) {
+        Author author = authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("없는 회원 ID 입니다."));
+        author.setIsDeleted("Y");
     }
 }

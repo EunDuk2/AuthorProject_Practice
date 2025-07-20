@@ -36,4 +36,10 @@ public class AuthorController {
         return new ResponseEntity<>(new CommonResponseDto(authorService.findById(inputId), "회원상세 조회 성공", HttpStatus.OK.value()), HttpStatus.OK); // ToDo - CommonResponseDto 매개변수 채우기
     }
 
+    // 회원탈퇴
+    @DeleteMapping("/delete/{inputId}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable Long inputId) {
+        authorService.delete(inputId);
+        return new ResponseEntity<>(new CommonResponseDto(inputId, "회원탈퇴 성공", HttpStatus.OK.value()), HttpStatus.OK);
+    }
 }

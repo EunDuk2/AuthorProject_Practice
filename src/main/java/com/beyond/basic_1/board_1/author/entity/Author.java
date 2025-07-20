@@ -25,4 +25,7 @@ public class Author extends BaseEntityForTime {
     private String email;
     @Column(length = 100, nullable = false)
     private String password;
+    @Setter
+    @Builder.Default
+    private String isDeleted = "N";
 }
