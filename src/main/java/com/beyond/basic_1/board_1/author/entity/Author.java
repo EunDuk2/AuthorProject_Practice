@@ -1,56 +1,28 @@
 package com.beyond.basic_1.board_1.author.entity;
 
-import com.beyond.basic_1.board_1.author.authorDto.AuthorListDto;
-import com.beyond.basic_1.board_1.author.authorEnum.AuthorState;
+import com.beyond.basic_1.board_1.common.BaseEntityForTime;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
-@Entity
-public class Author {
-    // Field
+public class Author extends BaseEntityForTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false) // ToDo - 예외처리
     private String name;
-
     @Column(length = 100, unique = true, nullable = false)
     private String email;
-
-    @Setter
     @Column(length = 100, nullable = false)
     private String password;
-
-    @CreationTimestamp
-    private LocalDateTime createdTime;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedTime;
-
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private AuthorState state = AuthorState.NORMAL;
-
-    // Constructor
-    public Author(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    // fromEntity
-    public AuthorListDto fromEntity() {
-        return new AuthorListDto(this.id, this.name);
-    }
 }

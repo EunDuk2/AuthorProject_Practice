@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommonErrorDto {
-    private int status_code;
-    private String status_message;
+    private String errorMessage;
+    private int statusCode;
 }
