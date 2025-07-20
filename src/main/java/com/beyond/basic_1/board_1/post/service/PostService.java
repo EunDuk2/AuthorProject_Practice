@@ -9,6 +9,8 @@ import com.beyond.basic_1.board_1.post.postDto.PostListDto;
 import com.beyond.basic_1.board_1.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +30,9 @@ public class PostService {
     }
 
     // 게시글목록 조회
-    public List<PostListDto> findAll() {
-        List<PostListDto> postListDtos = postRepository.findAll().stream().map(post -> PostListDto.fromEntity(post)).toList();
-        return postListDtos;
+    public Page<PostListDto> findAll(Pageable pageable) {
+        Page<PostListDto> postPageDtos = postRepository.findAll(pageable).map(post -> PostListDto.fromEntity(post));
+        return postPageDtos;
     }
 
     // 게시글상세 조회

@@ -5,6 +5,9 @@ import com.beyond.basic_1.board_1.post.postDto.PostCreateDto;
 import com.beyond.basic_1.board_1.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +27,8 @@ public class PostController {
 
     // 게시글목록 조회
     @GetMapping("/list")
-    public ResponseEntity<?> getPostList() {
-        return new ResponseEntity<>(new CommonResponseDto(postService.findAll(), "게시글목록 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
+    public ResponseEntity<?> getPostList(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+        return new ResponseEntity<>(new CommonResponseDto(postService.findAll(pageable), "게시글목록 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
     }
 
     // 게시글상세 조회
