@@ -33,7 +33,7 @@ public class AuthorController {
     // 회원상세 조회
     @GetMapping("/detail/{inputId}")
     public ResponseEntity<?> getAuthorDetail(@PathVariable Long inputId) {
-        return new ResponseEntity<>(new CommonResponseDto(authorService.findById(inputId), "회원상세 조회 성공", HttpStatus.OK.value()), HttpStatus.OK); // ToDo - CommonResponseDto 매개변수 채우기
+        return new ResponseEntity<>(new CommonResponseDto(authorService.findById(inputId), "회원상세 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
     }
 
     // 회원탈퇴

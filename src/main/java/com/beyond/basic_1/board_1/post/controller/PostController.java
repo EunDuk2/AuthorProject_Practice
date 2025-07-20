@@ -22,7 +22,7 @@ public class PostController {
     @PostMapping("/create")
     public ResponseEntity<?> createPost(@Valid @RequestBody PostCreateDto dto) {
         postService.save(dto);
-        return new ResponseEntity<>(new CommonResponseDto(dto, "게시글 작성 성공", HttpStatus.CREATED.value()), HttpStatus.CREATED); // Todo - 매개변수
+        return new ResponseEntity<>(new CommonResponseDto(dto, "게시글 작성 성공", HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
     // 게시글목록 조회

@@ -14,12 +14,14 @@ public class AuthorDetailDto {
     private Long id;
     private String name;
     private String email;
+    private int postCount;
 
     public static AuthorDetailDto fromEntity(Author author) {
         return AuthorDetailDto.builder()
                 .id(author.getId())
                 .name(author.getName())
                 .email(author.getEmail())
+                .postCount(author.getPostList().size())
                 .build();
     }
 }
