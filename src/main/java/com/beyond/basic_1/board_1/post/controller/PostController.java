@@ -27,4 +27,10 @@ public class PostController {
     public ResponseEntity<?> getPostList() {
         return new ResponseEntity<>(new CommonResponseDto(postService.findAll(), "게시글목록 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
     }
+
+    // 게시글상세 조회
+    @GetMapping("/detail/{inputId}")
+    public ResponseEntity<?> getPostDetail(@PathVariable Long inputId) {
+        return new ResponseEntity<>(new CommonResponseDto(postService.findById(inputId), "게시글상세 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
+    }
 }

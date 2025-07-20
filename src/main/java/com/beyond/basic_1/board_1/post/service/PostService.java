@@ -4,6 +4,7 @@ import com.beyond.basic_1.board_1.author.entity.Author;
 import com.beyond.basic_1.board_1.author.repository.AuthorRepository;
 import com.beyond.basic_1.board_1.post.entity.Post;
 import com.beyond.basic_1.board_1.post.postDto.PostCreateDto;
+import com.beyond.basic_1.board_1.post.postDto.PostDetailDto;
 import com.beyond.basic_1.board_1.post.postDto.PostListDto;
 import com.beyond.basic_1.board_1.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,5 +31,11 @@ public class PostService {
     public List<PostListDto> findAll() {
         List<PostListDto> postListDtos = postRepository.findAll().stream().map(post -> PostListDto.fromEntity(post)).toList();
         return postListDtos;
+    }
+
+    // 게시글상세 조회
+    public PostDetailDto findById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("없는 게시글 ID 입니다."));
+        return PostDetailDto.fromEntity(post);
     }
 }
