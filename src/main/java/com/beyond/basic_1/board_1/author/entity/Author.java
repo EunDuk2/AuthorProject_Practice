@@ -19,7 +19,7 @@ public class Author extends BaseEntityForTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 50, nullable = false) // ToDo - 예외처리
+    @Column(length = 50, nullable = false) // 예외처리를 위한 옵션이 아닌 테이블 데이터 옵션
     private String name;
     @Column(length = 100, unique = true, nullable = false)
     private String email;
