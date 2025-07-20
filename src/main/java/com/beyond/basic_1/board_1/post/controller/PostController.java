@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/post")
@@ -23,5 +20,11 @@ public class PostController {
     public ResponseEntity<?> createPost(@Valid @RequestBody PostCreateDto dto) {
         postService.save(dto);
         return new ResponseEntity<>(new CommonResponseDto(dto, "게시글 작성 성공", HttpStatus.CREATED.value()), HttpStatus.CREATED); // Todo - 매개변수
+    }
+
+    // 게시글목록 조회
+    @GetMapping("/list")
+    public ResponseEntity<?> getPostList() {
+        return new ResponseEntity<>(new CommonResponseDto(postService.findAll(), "게시글목록 조회 성공", HttpStatus.OK.value()), HttpStatus.OK);
     }
 }
